@@ -172,8 +172,6 @@ let currentAccount;
 // updateUI(currentAccount);
 // containerApp.style.opacity = 100;
 
-
-
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
@@ -189,6 +187,16 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    // create current date
+    const date = new Date();
+    const day = `${date.getDate()}`.padStart(2, 0); //padStart ->1tarik hole 01 evhabe dekhabe
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const hours = date.getHours().padStart(2, 0);
+    const min = date.getMinutes().padStart(2, 0);
+
+    labelDate.textContent = `${day}/${month}/${year}, ${hours}:${min}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -217,6 +225,10 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    // add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString);
+    receiverAcc.movementsDates.push(new Date().toISOString);
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -232,6 +244,9 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    // add loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
