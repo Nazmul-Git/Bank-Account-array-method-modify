@@ -200,7 +200,7 @@ btnLogin.addEventListener('click', function (e) {
     containerApp.style.opacity = 100;
 
     // create current date
-    
+
     // const date = new Date();
     // const day = `${date.getDate()}`.padStart(2, 0); //padStart ->1tarik hole 01 evhabe dekhabe
     // const month = `${date.getMonth() + 1}`.padStart(2, 0);
@@ -209,7 +209,15 @@ btnLogin.addEventListener('click', function (e) {
 
     // create current date -UPDATE METHOD
     const date=new Date();
-    labelDate.textContent=new Intl.DateTimeFormat('en-US').format(date);
+    const options={
+      hour:'numeric',
+      minute:'numeric',
+      day:'numeric',
+      month:'long',
+      year:'numeric',
+      weekDay:'long'
+    }
+    labelDate.textContent=new Intl.DateTimeFormat('en-US',options).format(date);
 
 
     // Clear input fields
